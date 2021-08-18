@@ -1,26 +1,27 @@
 #include <bits/stdc++.h>
 using namespace std;
 #define int long long int
- 
+
+// Min distance Dijkstra's
 int n, m;
 vector<vector<pair<int, int>>> adj;
 vector<int> dis;
- 
+
 void dijkstra(int src) {
-    dis.resize(n, 1e18);
+    dis.assign(n, (int64_t)1e18);
     priority_queue<pair<int, int>> q;
     q.push({0, src});
     dis[src] = 0;
     while(q.size()) {
-        int node = q.top().second;
-        int dis_n = q.top().first;
+        auto [dis_n, prev] = q.top();
         q.pop();
-        if(-dis_n != dis[node]) 
+        // q -> {-distance, prev}
+        if(-dis_n != dis[prev])
             continue;
-        for(auto it: adj[node]) {
-            if(dis[it.first] > dis[node] + it.second) {
-                dis[it.first] = dis[node] + it.second;
-                q.push({-dis[it.first], it.first});
+        for(auto [cur, wt]: adj[prev]) {
+            if(dis[cur] > dis[prev] + wt) {
+                dis[cur] = dis[prev] + wt;
+                q.push({-dis[cur], cur});
             }
         }
     }
@@ -28,11 +29,12 @@ void dijkstra(int src) {
 
 void solve() {
     cin >> n >> m;
-    adj.clear(); adj.resize(n);
+    adj.assign(n, vector<pair<int, int>>());
+
     for(int i = 0; i < m; i++) {
-        int u, v, w;
-        cin >> u >> v >> w;
-        adj[u - 1].push_back({v - 1, w});
+        int u, v, wt;
+        cin >> u >> v >> wt;
+        adj[u - 1].push_back({v - 1, wt});
     }
     dijkstra(0);
     for(auto it: dis)
