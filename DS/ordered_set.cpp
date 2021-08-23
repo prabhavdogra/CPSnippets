@@ -16,7 +16,7 @@ template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, t
 //  .insert(val)
 //  .erase(iter/val)
 //  .order_of_key(k) -> Number of items strictly smaller than k .
-//  .find_by_order(k)->: K-th element in a set (counting from zero).
+//  .find_by_order(k) -> K-th element in a set (counting from zero).
 
 signed main() {   
     ios::sync_with_stdio(0); cin.tie(0); cout.tie(0);
