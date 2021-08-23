@@ -25,7 +25,7 @@ int modncr(int n, int r, int p) { // p should be prime
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
-    // modncr(n, c, M);
+    // modncr(n, r, M);
 
     return 0;
 }
