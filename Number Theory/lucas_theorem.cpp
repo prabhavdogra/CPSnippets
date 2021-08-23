@@ -3,7 +3,7 @@ using namespace std;
 constexpr int64_t M = 1e9 + 7;
 #define int long long int
 
-// O(p^2)
+// O(p^2 logp(n))
 int modncrdp(int n, int r, int p) {
     int c[r + 1];
     memset(c, 0, sizeof(c));
