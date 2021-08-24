@@ -2,7 +2,6 @@
 using namespace std;
 #define int long long int
 
-// O(n log log n)
 template <int SZ = 1'000'000>
 struct sieve {
     vector<bool> isPrime;
