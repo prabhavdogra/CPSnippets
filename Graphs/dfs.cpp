@@ -37,13 +37,13 @@ void dfs_lamda() {
     cin >> n >> m;
     vector<vector<int>> adj(n);
     vector<int> vis(n, 0);
-    // for(int i = 0; i < m; i++) {
-    //     int u, v;
-    //     cin >> u >> v;
-    //     u--; v--;
-    //     adj[u].push_back(v);
-    //     adj[v].push_back(u);
-    // }
+    for(int i = 0; i < m; i++) {
+        int u, v;
+        cin >> u >> v;
+        u--; v--;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
     auto dfs = [&] (const auto& self, int v) -> void {
         vis[v] = true;
         for (auto u : adj[v]) {
