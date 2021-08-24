@@ -12,7 +12,7 @@ struct n_divisors {
             int j = i;
             while(j <= SZ)
                 div[j].push_back(i), j += i;
-	}
+        }
     }
 };
 
