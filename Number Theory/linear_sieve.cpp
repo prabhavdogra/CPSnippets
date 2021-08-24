@@ -24,7 +24,7 @@ struct sieve {
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
-    sieve<1'000'000> p;
+    sieve<1'000'000> t;
 	
     return 0;
 }
