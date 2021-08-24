@@ -23,7 +23,6 @@ signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
     etf<1'000'000> cal;
     // cal.phi[n];
-    for(int i = 0; i < 17; i++)
-        cout << cal.phi[i] << " ";
+    
     return 0;
 }
