@@ -1,3 +1,7 @@
+// Author: Navneel Singhal
+// https://codeforces.com/profile/nor
+// https://github.com/NavneelSinghal
+
 #include <algorithm>
 #include <iostream>
 #include <iterator>
