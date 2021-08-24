@@ -17,10 +17,10 @@ int modncrdp(int n, int r, int p) {
 }
 
 int modncr(int n, int r, int p) { // p should be prime
-   if(r == 0) 
-      return 1;
-   int ni = n % p, ri = r % p;
-   return (modncr(n/p, r/p, p) * modncrdp(ni, ri, p)) % p;
+    if(r == 0) 
+        return 1;
+    int ni = n % p, ri = r % p;
+    return (modncr(n/p, r/p, p) * modncrdp(ni, ri, p)) % p;
 }
 
 signed main() {
