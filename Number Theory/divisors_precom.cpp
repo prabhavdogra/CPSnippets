@@ -17,8 +17,8 @@ struct n_divisors {
 };
 
 signed main() {
-	ios::sync_with_stdio(0); cin.tie(0);
-	n_divisors<100'000> t;
+     ios::sync_with_stdio(0); cin.tie(0);
+     n_divisors<100'000> t;
 	
-	return 0;
+     return 0;
 }
