@@ -1,7 +1,3 @@
-// Author: Navneel Singhal
-// https://codeforces.com/profile/nor
-// https://github.com/NavneelSinghal
-
 #include<bits/stdc++.h>
 
 template <std::uint32_t P> struct ModInt32 {
