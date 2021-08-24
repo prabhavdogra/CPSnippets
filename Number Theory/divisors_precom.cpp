@@ -19,8 +19,6 @@ struct n_divisors {
 signed main() {
 	ios::sync_with_stdio(0); cin.tie(0);
 	n_divisors<100'000> t;
-    for(auto it: t.div[12])
-        cout << it << " ";
-    
+	
 	return 0;
 }
