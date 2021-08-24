@@ -50,14 +50,18 @@ namespace number_theory {
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
     cout << isPrime(7) << '\n';
+    
     for(auto it: divisors(12))
         cout << it << " ";
     cout << '\n';
+    
     for(auto it: primeFactors(102))
         cout << it << " ";
     cout << '\n';
+    
     for(auto [key, freq]: factorize(204))
         cout << key << ": " << freq << '\n';
     cout << '\n';
+    
     return 0;
 }
