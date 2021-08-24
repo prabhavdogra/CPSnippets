@@ -39,7 +39,7 @@ public:
     }
 };
 
-pnc cal(3e5, M);
+pnc t(3e5, M);
 // cal.ncr(n, r)
 // cal.npr(n, r)
 
