@@ -30,7 +30,7 @@ struct segmentedSieve {
     }
 };
 
-segmentedSieve<1000'000'000, 1000'000'009> p;
+segmentedSieve<1000'000'000, 1000'000'009> t;
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
