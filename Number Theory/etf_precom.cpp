@@ -21,7 +21,7 @@ struct etf {
 
 signed main() {
     ios::sync_with_stdio(0); cin.tie(0);
-    etf<1'000'000> cal;
+    etf<1'000'000> t;
     // cal.phi[n];
     
     return 0;
