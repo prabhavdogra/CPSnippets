@@ -57,7 +57,9 @@ struct NODE1 {
 };
 
 signed main() {
-    vector<int> a;
+    int n;
+    cin >> n;
+    vector<int> a(n);
     for(auto &it: a)
         cin >> it;
     sparse_table<NODE1> sp(a);
