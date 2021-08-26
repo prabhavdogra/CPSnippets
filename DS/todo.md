@@ -1,3 +1,1 @@
-Sparse table
-
 Bitset
