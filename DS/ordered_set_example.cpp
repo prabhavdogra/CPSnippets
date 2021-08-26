@@ -13,10 +13,10 @@ template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, t
 // ordered_set <pair<int, int>> t;
 // ordered_set <int> x;
 
-//     .insert(val)
-//     .erase(iter/val)
-//     .order_of_key(k) : Number of items strictly smaller than k .
-//     .find_by_order(k) : K-th element in a set (counting from zero).
+//  .insert(val)
+//  .erase(iter/val)
+//  .order_of_key(k) -> Number of items strictly smaller than k
+//  .find_by_order(k) -> K-th element in a set (counting from zero)
 
 // https://cses.fi/problemset/task/1144/
 
