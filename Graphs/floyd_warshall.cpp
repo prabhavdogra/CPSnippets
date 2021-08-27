@@ -5,7 +5,7 @@ constexpr int64_t INF = 1e17;
 // O(V^3)
 vector<vector<int>> floydWarshall(vector<vector<int>> &adj_mat) {
     auto res = adj_mat;
-    for (int i = 0; i < adj_mat.size(); i++)
+    for (int i = 0; i < adj_mat.size(); i++) // Self-Loop
         res[i][i] = 0;
     for (int k = 0; k < adj_mat.size(); k++)
         for (int i = 0; i < adj_mat.size(); i++)
