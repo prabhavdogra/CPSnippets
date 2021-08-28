@@ -11,7 +11,7 @@ void submaskEnumeration(int mask) {
     }
 }
 
-// O(3^n)
+// O(3^bits)
 void allSubmaskEnumeration(int mask) {
     int n;
     for(int mask = 0; mask < (1 << n); mask++) {
