@@ -1,3 +1,4 @@
+// Atcoder library - https://atcoder.github.io/ac-library/production/document_en/
 namespace atcoder {
 
 template <class S, S (*operation)(const S&, const S&), S (*initialize)()> struct segtree {
