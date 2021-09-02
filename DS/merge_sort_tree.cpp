@@ -1,72 +1,68 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
 
-template<typename NODE>
+template<typename NODE, class S>
 struct mergeTree {
-    int size_;
-    vector<vector<int>> t;
-    mergeTree(vector<int> &a) {
-        size_ = a.size();
-        t.resize(4 * size_);
-        build(a, 1, 1, size_);
+    int32_t sz;
+    vector<NODE> t;
+    mergeTree(vector<NODE> &a) {
+        sz = a.size();
+        t.resize(4 * sz);
+        build(a, 1, 1, sz);
     }
-    int query(int l, int r, int k) {
-        return queryHelper(1, 1, size_, l + 1, r + 1, k);
-    }
-    void merge(vector<int> &l, vector<int> &r, vector<int> &par) {
-        int i = 0, j = 0;
-        while (i < l.size() && j < r.size())
-            if (l[i] <= r[j]) par.push_back(l[i]), i++;
-            else par.push_back(r[j]), j++;
-        while (i < l.size()) par.push_back(l[i]), i++;
-        while (j < r.size()) par.push_back(r[j]), j++;
-    }
-    void build(vector<int> &a, int u, int l, int r) {
-        if (l == r) {
-            t[u].push_back(a[l - 1]);
+    void build(vector<NODE> &a, int32_t u, int32_t l, int32_t r) {
+        if(l == r) {
+            t[u].apply(a[l - 1]);
             return;
         }
         int mid = (l + r) >> 1;
         build(a, 2 * u, l, mid);
         build(a, 2 * u + 1, mid + 1, r);
-        merge(t[2 * u], t[2 * u + 1], t[u]);
+        t[u].merge(t[u << 1], t[(u << 1) + 1]);
     }
-    int queryHelper(int u, int l, int r, int ql, int qr, int k) {
+    template <int (*f)(NODE&, S)> 
+    int query(int32_t l, int32_t r, S k) {
+        return queryHelper<f>(1, 1, sz, l + 1, r + 1, k);
+    }
+    template <int (*f)(NODE&, S)> 
+    int queryHelper(int32_t u, int32_t l, int32_t r, int32_t ql, int32_t qr, S k) {
         if (l > qr || r < ql) return 0;
-        if (l >= ql && r <= qr) return fun(t[u], k);
+        if (l >= ql && r <= qr) return f(t[u], k);
         int mid = (l + r) >> 1;
-        int left = queryHelper(2 * u, l, mid, ql, qr, k);
-        int right = queryHelper(2 * u + 1, mid + 1, r, ql, qr, k);
+        int left = queryHelper<f>(u << 1, l, mid, ql, qr, k);
+        int right = queryHelper<f>((u << 1) + 1, mid + 1, r, ql, qr, k);
         return left + right;
-    }
-    int fun(vector<int> &a, int k) {
-        return a.end() - upper_bound(a.begin(), a.end(), k);
     }
 };
 
+using S = int;
+struct NODE1 {
+    vector<S> cur;
+    void apply(NODE1 x) {
+        cur = x.cur;
+    }
+    void merge(NODE1 &l, NODE1 &r) {
+        int32_t i = 0, j = 0;
+        while (i < l.cur.size() && j < r.cur.size())
+            if (l.cur[i] <= r.cur[j]) cur.push_back(l.cur[i]), i++;
+            else cur.push_back(r.cur[j]), j++;
+        while (i < l.cur.size()) cur.push_back(l.cur[i]), i++;
+        while (j < r.cur.size()) cur.push_back(r.cur[j]), j++;
+    }
+};
+
+// count of numbers > k
+int f(NODE1 &a, S k) {
+    return a.cur.end() - upper_bound(a.cur.begin(), a.cur.end(), k);
+}
+
 signed main() {
     ios::sync_with_stdio(0), cin.tie(0);
-    int n, q, u, v;
-    cin >> n >> q;
-    vector<int> a(n), b(n);
-    map<int, vector<int>> m;
-    for(int i = 0; i < n; i++) {
-        cin >> a[i];
-        m[a[i]].push_back(i);
-    }
-    for(auto &[id, v]: m) {
-        reverse(v.begin(), v.end());
-        int last = 1e9;
-        for(auto it: v) {
-            b[it] = last;
-            last = it;
-        }
-    }
-    mergeTree<int> st(b);
-    while(q--) {
-        cin >> u >> v;
-        cout << st.query(u - 1, v - 1, v - 1) << '\n';
-    }
+    int n;
+    cin >> n;
+    vector<NODE1> a(n);
+    mergeTree<NODE1, S> st(a);
+    // st.query<f>(start, end, k);
+    
     return 0;
 }
