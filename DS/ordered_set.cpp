@@ -10,6 +10,9 @@ template<class T> using ordered_set = tree<T, null_type, less<T>, rb_tree_tag, t
 // Ordered multiset
 // template<class T> using ordered_set = tree<T, null_type, less_equal<T>, rb_tree_tag, tree_order_statistics_node_update>;
 
+// Special Case: Erasing in ordered multiset
+// os.erase(os.find_by_order(os.order_of_key(val)));
+
 // ordered_set <pair<int, int>> t;
 // ordered_set <int> x;
 
