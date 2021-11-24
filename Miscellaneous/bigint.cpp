@@ -1,4 +1,5 @@
 #include <bits/stdc++.h>
+// Original Author: https://codeforces.com/profile/nor
 
 struct BigInt {
     static constexpr int BASE_DIGITS = 9;
