@@ -41,7 +41,9 @@ void dfs_tree_lamda() {
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
+	
 	dfs_tree_lamda();
-    dfs_tree_rec();
+    	dfs_tree_rec();
+	
 	return 0;
 }
