@@ -40,6 +40,17 @@ public:
 				u = dp[u][i], v = dp[v][i];
 		return dp[u][0];
 	}
+	// For k = 0 ancestor of x is x
+	// Return -2 if kth ancestor doesn't exist
+	int kthAncestor(int x, int k) {
+		if(level[x] <= k) // Kth ancestor doesn't exist
+			return -2;
+		int ans = x;
+		for(int i = 0; i < ln + 1; i++)
+			if((k >> i) & 1)
+				ans = dp[ans][i];
+		return ans;    
+	}
 };
 
 // LCA t(adj);
