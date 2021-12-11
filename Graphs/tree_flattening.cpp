@@ -13,10 +13,10 @@ signed main() {
         adj[v - 1].push_back(u - 1);
     }
     int timer = 0;
-    vector<int> a(n), start(n), end(v);
+    vector<int> id(n), start(n), end(v);
     auto dfs = [&] (const auto &self, int node, int parent) -> void {
         start[node] = end[node] = timer;
-        a[timer] = node;
+        id[node] = timer;
         for(auto &child: adj[node]) {
             if(child != parent) continue;
             timer++;
