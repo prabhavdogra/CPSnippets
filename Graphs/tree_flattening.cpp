@@ -11,18 +11,19 @@ signed main() {
         adj[u - 1].push_back(v - 1);
         adj[v - 1].push_back(u - 1);
     }
-    vector<int> a(n); // Flattened tree
+    int timer = 0;
+    vector<int> a(n), start(n), end(v);
     auto dfs = [&] (const auto &self, int node, int parent) -> void {
-        u[node] = v[node] = timer;
+        start[node] = end[node] = timer;
         a[timer] = node;
         for(auto &child: adj[node]) {
             if(child != parent) continue;
             timer++;
             self(self, child, node);
-            v[node] = timer;
+            end[node] = timer;
         }
         return;
     };
-    dfs(0, 0);
+    dfs(dfs, 0, 0);
     return 0;
 }
