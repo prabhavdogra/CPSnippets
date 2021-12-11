@@ -5,6 +5,7 @@ using namespace std;
 signed main() {
     cin.tie(nullptr)->sync_with_stdio(false);
     int n, u, v;
+    cin >> n;
     vector<vector<int>> adj(n);
     for(int i = 0; i < n - 1; i++) {
         cin >> u >> v;
