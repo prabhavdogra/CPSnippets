@@ -24,7 +24,6 @@ public:
 		for(auto &child: adj[node])
 			if(child != parent)
 				precom(child, node);
-		cout << '\n';
 	}	
 	int lca(int u, int v) {
 		if(level[u] < level[v])
