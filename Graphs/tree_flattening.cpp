@@ -18,7 +18,7 @@ signed main() {
         start[node] = end[node] = timer;
         id[node] = timer;
         for(auto &child: adj[node]) {
-            if(child != parent) continue;
+            if(child == parent) continue;
             timer++;
             self(self, child, node);
             end[node] = timer;
