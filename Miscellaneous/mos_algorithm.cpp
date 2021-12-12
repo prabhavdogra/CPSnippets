@@ -31,7 +31,7 @@ struct mos {
             // Reducing range
             while (l < ql) remove(a, l++, res);
             while (r > qr) remove(a, r--, res);
-            ans[id] = cnt;
+            ans[id] = res;
         }
         return ans;
     }
