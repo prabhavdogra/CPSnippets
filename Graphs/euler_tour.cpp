@@ -10,6 +10,8 @@ public:
     euler_tour() {}
     euler_tour(vector<vector<int>> &a) {
         adj = a;
+        start.assign(a.size(), 0);
+        end.assign(a.size(), 0);
         dfs_precom(0, 0);
     }
     void dfs_precom(int node, int parent) {
