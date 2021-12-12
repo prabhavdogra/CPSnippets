@@ -10,11 +10,11 @@ struct queryResult {
 };
 
 struct mos {
-    static void add(vector<int> &a, int id, queryResult &cur);
-    static void remove(vector<int> &a, int id, queryResult &cur);
+    static void add(vector<int> &a, int id, queryResult &res);
+    static void remove(vector<int> &a, int id, queryResult &res);
     static vector<queryResult> cal(vector<int> &a, vector<query> &q) {
         int l = 0, r = -1, n = a.size(), blk_sz = sqrt(n);
-        queryResult cnt;
+        queryResult res;
         vector<queryResult> ans(q.size());
         sort(q.begin(), q.end(), [&] (const query &p1, const query &p2) {
             if(p1.l/blk_sz == p2.l/blk_sz) 
@@ -26,21 +26,21 @@ struct mos {
             int qr = q[i].r;
             int id = q[i].id;
             // Extending range
-            while (l > ql) add(a, --l, cnt);
-            while (r < qr) add(a, ++r, cnt);
+            while (l > ql) add(a, --l, res);
+            while (r < qr) add(a, ++r, res);
             // Reducing range
-            while (l < ql) remove(a, l++, cnt);
-            while (r > qr) remove(a, r--, cnt);
+            while (l < ql) remove(a, l++, res);
+            while (r > qr) remove(a, r--, res);
             ans[id] = cnt;
         }
         return ans;
     }
 };
 
-void mos::add(vector<int> &a, int id, queryResult &cur) {
+void mos::add(vector<int> &a, int id, queryResult &res) {
     
 }
-void mos::remove(vector<int> &a, int id, queryResult &cur) {
+void mos::remove(vector<int> &a, int id, queryResult &res) {
     
 }
 // mos::cal(a, q);
