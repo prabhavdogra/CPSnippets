@@ -1,6 +1,8 @@
 #include <bits/stdc++.h>
 using namespace std;
 
+// O(n * sqrt(n))
+
 struct query {
     int l, r, id;
 };
