@@ -15,13 +15,13 @@ public:
         dfs_precom(0, 0);
     }
     void dfs_precom(int node, int parent) {
-        start[node] = end[node] = timer;
+        start[node] = timer;
         for(auto &child: adj[node]) {
             if(child == parent) continue;
             timer++;
             dfs_precom(child, node);
-            end[node] = timer;
         }
+        end[node] = timer;
         return;
     };
 };
