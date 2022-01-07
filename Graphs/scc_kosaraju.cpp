@@ -2,6 +2,10 @@
 using namespace std;
 #define int long long int
 
+// Reversing the direction of all the edges gives us the transpose of the graph
+// Kosaraju's Algorithms works on the principle that:
+// Transposing the graph has no effect on SCC's
+
 void solve() {
 	int n, m, u, v;
 	cin >> n >> m;
