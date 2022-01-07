@@ -29,7 +29,7 @@ void solve() {
 		return order_;
 	};
 	auto order = topo_dfs(adj);
-	auto scc = [&] (vector<int> order_) -> vector<vector<int>> {
+	auto scc_kosaraju = [&] (vector<int> order_) -> vector<vector<int>> {
 		vector<vector<int>> components_;
 		vis.assign(n, 0);
 		auto helper = [&] (const auto &self, int node) -> void {
@@ -47,7 +47,7 @@ void solve() {
 		}
 		return components_;
 	};
-	auto components = scc(order);
+	auto components = scc_kosaraju(order);
 }
 
 signed main() {
