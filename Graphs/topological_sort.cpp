@@ -12,26 +12,28 @@ void solve() {
 	int n, m, u, v;
 	cin >> n >> m;
 	vector<vector<int>> adj(n);
-	vector<int> vis(n), order;
+	vector<int> vis(n);
 	for(int i = 0; i < m; i++) {
 		cin >> u >> v;
 		adj[u - 1].push_back(v - 1);
-		adj[v - 1].push_back(u - 1);
 	}
-    auto topo_dfs = [&] () -> void {
-        auto helper = [&] (const auto &self, int node) -> void {
-            vis[node] = 1;
-            for(auto &child: adj[node])
-                if(!vis[child])
-                    self(self, child);
-            order.push_back(node);
-        };
-        for(int i = 0; i < n; i++)
-            if(!vis[i])
-                helper(helper, i);
-        reverse(order.begin(), order.end());
-    };
-    topo_dfs();
+	auto topo_dfs = [&] (vector<vector<int>> &adj_) -> vector<int> {
+		vis.assign(n, 0);
+		vector<int> order_;
+		auto helper = [&] (const auto &self, int node) -> void {
+			vis[node] = 1;
+			for(auto &child: adj_[node])
+				if(!vis[child])
+					self(self, child);
+			order_.push_back(node);
+		};
+		for(int i = 0; i < n; i++)
+			if(!vis[i])
+				helper(helper, i);
+		reverse(order_.begin(), order_.end());
+		return order_;
+	};
+	auto order = topo_dfs(adj);  
 }
 
 signed main() {
