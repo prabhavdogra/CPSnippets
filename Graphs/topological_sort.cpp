@@ -18,20 +18,20 @@ void solve() {
 		adj[u - 1].push_back(v - 1);
 		adj[v - 1].push_back(u - 1);
 	}
-	auto topo_dfs = [&] (const auto &self, int node) -> void {
-		vis[node] = 1;
-		for(auto &child: adj[node])
-			if(!vis[child])
-				self(self, child);
-		order.push_back(node);
-	};
-	for(int i = 0; i < n; i++)
-		if(!vis[i])
-			topo_dfs(topo_dfs, i);
-    reverse(order.begin(), order.end());
-	for(auto &it: order)
-		cout << it << " ";
-	cout << '\n';
+    auto topo_dfs = [&] () -> void {
+        auto helper = [&] (const auto &self, int node) -> void {
+            vis[node] = 1;
+            for(auto &child: adj[node])
+                if(!vis[child])
+                    self(self, child);
+            order.push_back(node);
+        };
+        for(int i = 0; i < n; i++)
+            if(!vis[i])
+                helper(helper, i);
+        reverse(order.begin(), order.end());
+    };
+    topo_dfs();
 }
 
 signed main() {
