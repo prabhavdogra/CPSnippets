@@ -29,7 +29,7 @@ void prim() {
 		q.erase(q.begin());
 		if(mstEdges[v].second != -1) {
 			// To print the MST edges
-			// cout << v << " " << mstEdges[v].second << '\n';
+			cout << v << " " << mstEdges[v].second << '\n';
 		}
 		for(auto &[wt, node] : adj[v]) {
 			if(!vis[node] && wt < mstEdges[node].first) {
