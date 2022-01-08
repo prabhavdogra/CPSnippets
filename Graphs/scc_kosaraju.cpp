@@ -54,6 +54,24 @@ void solve() {
 		return components_;
 	};
 	auto components = scc(adj, order);
+	auto compress = [&] (vector<vector<int>> adj_, vector<vector<int>> &components_) -> vector<vector<int>> {
+		vector<int> color_(adj_.size());
+		vector<vector<int>> adj_scc_(adj_.size());
+		for(auto &component_: components_) {
+			int col_ = component_[0];
+			for(auto it: component_) {
+				color_[it] = col_;
+			}
+		}
+		for(int i = 0; i < n; i++) {
+			for(auto j: adj_[i]) {
+				if(color_[i] != color_[j])
+					adj_scc_[color_[i]].push_back(color_[j]);
+			}
+		}
+		return adj_scc_;
+	};
+	auto adj_scc = compress(adj, components);
 }
 
 signed main() {
