@@ -144,6 +144,7 @@ void solve() {
 		}
 		return adj_scc_;
 	};
+	// components[i][0] -> Topologic Ordering for the Condensed Graph
 	auto adj_scc = condense(adj, components);
 }
 
