@@ -12,13 +12,12 @@ void solve() {
 	int n, m, u, v;
 	cin >> n >> m;
 	vector<vector<int>> adj(n);
-	vector<int> vis(n);
 	for(int i = 0; i < m; i++) {
 		cin >> u >> v;
 		adj[u - 1].push_back(v - 1);
 	}
 	auto topo_dfs = [&] (vector<vector<int>> &adj_) -> vector<int> {
-		vis.assign(n, 0);
+		vector<int> vis(adj_.size());
 		vector<int> order_;
 		auto helper = [&] (const auto &self, int node) -> void {
 			vis[node] = 1;
