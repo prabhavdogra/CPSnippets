@@ -9,15 +9,13 @@ using namespace std;
 void solve() {
 	int n, m, u, v;
 	cin >> n >> m;
-	vector<vector<int>> adj(n), radj(n);
-	vector<int> vis(n);
+	vector<vector<int>> adj(n);
 	for(int i = 0; i < m; i++) {
 		cin >> u >> v;
 		adj[u - 1].push_back(v - 1);
-		radj[v - 1].push_back(u - 1);
 	}
 	auto topo_dfs = [&] (vector<vector<int>> &adj_) -> vector<int> {
-		vis.assign(n, 0);
+		vector<int> vis(adj.size());
 		vector<int> order_;
 		auto helper = [&] (const auto &self, int node) -> void {
 			vis[node] = 1;
@@ -33,9 +31,13 @@ void solve() {
 		return order_;
 	};
 	auto order = topo_dfs(adj);
-	auto scc_kosaraju = [&] (vector<int> order_) -> vector<vector<int>> {
+	auto scc_kosaraju = [&] (vector<vector<int>> &adj_, vector<int> order_) -> vector<vector<int>> {
+        vector<vector<int>> radj(order_.size());
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < adj_[i].size(); j++)
+                radj[j].push_back(i);
 		vector<vector<int>> components_;
-		vis.assign(n, 0);
+		vector<int> vis(adj_.size());
 		auto helper = [&] (const auto &self, int node) -> void {
 			vis[node] = 1;
 			components_.back().push_back(node);
@@ -43,15 +45,12 @@ void solve() {
 				if(!vis[child])
 					self(self, child);
 		};
-		for(auto node: order) {
-			if(!vis[node]) {
-				components_.push_back(vector<int>());
-				helper(helper, node);
-			}
-		}
+		for(auto node: order)
+			if(!vis[node])
+				components_.push_back(vector<int>()), helper(helper, node);
 		return components_;
 	};
-	auto components = scc_kosaraju(order);
+	auto components = scc_kosaraju(adj, order);
 }
 
 signed main() {
