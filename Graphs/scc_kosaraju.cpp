@@ -15,7 +15,7 @@ void solve() {
 		adj[u - 1].push_back(v - 1);
 	}
 	auto topo_dfs = [&] (vector<vector<int>> &adj_) -> vector<int> {
-		vector<int> vis(adj.size());
+		vector<int> vis(adj_.size());
 		vector<int> order_;
 		auto helper = [&] (const auto &self, int node) -> void {
 			vis[node] = 1;
@@ -31,26 +31,29 @@ void solve() {
 		return order_;
 	};
 	auto order = topo_dfs(adj);
-	auto scc_kosaraju = [&] (vector<vector<int>> &adj_, vector<int> order_) -> vector<vector<int>> {
-        vector<vector<int>> radj(order_.size());
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < adj_[i].size(); j++)
-                radj[j].push_back(i);
+	auto scc = [&] (vector<vector<int>> adj_, vector<int> order_) -> vector<vector<int>> {
+		vector<vector<int>> radj_(adj_.size());
+		for(int i = 0; i < adj_.size(); i++)
+			for(auto j: adj[i])
+				radj_[j].push_back(i);
 		vector<vector<int>> components_;
-		vector<int> vis(adj_.size());
+		auto vis = vector<int>(n, 0);
 		auto helper = [&] (const auto &self, int node) -> void {
 			vis[node] = 1;
 			components_.back().push_back(node);
-			for(auto child: radj[node])
+			for(auto child: radj_[node])
 				if(!vis[child])
 					self(self, child);
 		};
-		for(auto node: order)
-			if(!vis[node])
-				components_.push_back(vector<int>()), helper(helper, node);
+		for(auto node: order) {
+			if(!vis[node]) {
+				components_.push_back(vector<int>());
+				helper(helper, node);
+			}
+		}
 		return components_;
 	};
-	auto components = scc_kosaraju(adj, order);
+	auto components = scc(adj, order);
 }
 
 signed main() {
