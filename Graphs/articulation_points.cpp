@@ -37,15 +37,14 @@ public:
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
-    int n, m, u, v;
+	int n, m, u, v;
 	cin >> n >> m;
-    vector<vector<int>> adj(n);
-    for(int i = 0; i < m; i++) {
-        cin >> u >> v;
-        adj[u - 1].push_back(v - 1);
-        adj[v - 1].push_back(u - 1);
-    }
-    articulation_point t(adj);
+	vector<vector<int>> adj(n);
+	for(int i = 0; i < m; i++) {
+		cin >> u >> v;
+		adj[u - 1].push_back(v - 1);
+		adj[v - 1].push_back(u - 1);
+	}
+	articulation_point t(adj);
 	return 0;
 }
-    
