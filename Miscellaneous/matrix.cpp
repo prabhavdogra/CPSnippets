@@ -2,12 +2,18 @@
 using namespace std;
 #define int long long int
 
+int64_t MOD = LLONG_MAX;
 template<typename T>
 struct matrix {
 	int rows, columns;
 	vector<T> data_;
 	matrix() {}
 	matrix(int n__, int m__) : rows(n__), columns(m__), data_(rows * columns, 0) {}
+	matrix(vector<vector<int>> mat_) : rows(mat_.size()), columns(mat_[0].size()), data_(rows * columns, 0) {
+		for(int i = 0; i < rows; i++)
+			for(int j = 0; j < columns; j++)
+				data_[i * columns + j] = mat_[i][j];
+	}
 	typename vector<T>::iterator operator[](int i) {
 		return data_.begin() + i * columns;
 	}
@@ -25,7 +31,15 @@ struct matrix {
 		matrix res(a.rows, a.columns);
 		for(int i = 0; i < a.rows; i++)
 			for(int j = 0; j < a.columns; j++)
-					res[i][j] = a[i][j] + b[i][j];
+				res[i][j] = (a[i][j] + b[i][j]) % MOD;
+		return res;
+	}
+	friend matrix<T> operator - (const matrix<T> &a, const matrix<T> &b) {
+		assert(a.rows == b.rows && a.columns == b.columns);
+		matrix res(a.rows, a.columns);
+		for(int i = 0; i < a.rows; i++)
+			for(int j = 0; j < a.columns; j++)
+				res[i][j] = (a[i][j] - b[i][j]) % MOD;
 		return res;
 	}
 	friend matrix<T> operator * (const matrix<T> &a, const matrix<T> &b) {
@@ -34,7 +48,7 @@ struct matrix {
 		for(int i = 0; i < a.rows; i++)
 			for(int k = 0; k < a.columns; k++)
 				for(int j = 0; j < b.columns; j++)
-					res[i][j] += a[i][k] * b[k][j];
+					res[i][j] = (res[i][j] + ((a[i][k] * b[k][j]) % MOD)) % MOD;
 		return res;
 	}
 	template<typename S>
@@ -74,26 +88,32 @@ struct matrix {
 	}
 };
 
-// Declaration:             matrix<int> a(rows, columns);
-// To access:               a[row][column];
-// Rows in the matrix:      a.rows
-// Columns in the matrix:   a.columns
-// Matrix Addition:         c = a + b;
-// Matrix Multiplicaton:    res = a * b;
-// Scalar Multiplication:   res = a * 2;
-// Matrix Exponentiation:   res = a.pow(n);
-// Transpose Matrix:        res = a.transpose();
-// Print Matrix:            a.print();
+// Declaration:              matrix<int> a(rows, columns);
+// Initialising:             matrix<int> a({
+//                               {0, 1, 2},
+//                               {3, 4, 5},
+//                           });
+// To access:                a[row][column];
+// Rows in the matrix:       a.rows
+// Columns in the matrix:    a.columns
+// Identity square matrix:   identity(n);
+// Matrix Addition:          c = a + b;
+// Matrix Multiplicaton:     res = a * b;
+// Scalar Multiplication:    res = a * 2;
+// Matrix Exponentiation:    res = a.pow(n);
+// Transpose Matrix:         res = a.transpose();
+// Print Matrix:             a.print();
 
-// NOTE: 
-// Make sure to matrix<double> if you're multiplying by a double scalar.
-// +=, *= -> Operators not overloaded
+// NOTE:
+//  • Remember to set MOD, MOD = LLONG_MAX; in case of no mod
+//  • +=, *= -> Operators not overloaded
+//  • Make sure to matrix<double> if you're multiplying by a double scalar
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
 	int n, m;
 	cin >> n >> m;
 	matrix<int> a(n, m);
-
+	
 	return 0;
 }
