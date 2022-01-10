@@ -3,6 +3,7 @@ using namespace std;
 #define int long long int
 
 int64_t MOD = LLONG_MAX;
+int64_t MOD = 1e9 + 7;
 template<typename T>
 struct matrix {
 	int rows, columns;
@@ -67,6 +68,23 @@ struct matrix {
 				res[i][j] = b[i][j] * a;
 		return res;
 	}
+	friend bool operator == (const matrix<T> &a, const matrix<T> &b) {
+		assert(a.rows == b.rows && a.columns == b.columns);
+		for(int i = 0; i < a.rows; i++)
+			for(int j = 0; j < a.columns; j++)
+				if(a[i][j] != b[i][j])
+					return false;
+		return true;
+	}
+	matrix<T>& operator += (const matrix<T> &a) {
+		return *this = *this + a;
+	}
+	matrix<T>& operator -= (const matrix<T> &a) {
+		return *this = *this - a;
+	}
+	matrix<T>& operator *= (const matrix<T> &a) {
+		return *this = *this * a;
+	}
 	matrix<T> pow(int64_t e) const {
 		assert(rows == columns);
 		if(e == 0) return identity(rows);
@@ -81,9 +99,11 @@ struct matrix {
 		return res;
 	}
 	void print() {
+		cerr << columns << '\n';
 		for(int i = 0; i < data_.size(); i++) {
 			cerr << data_[i] << " ";
-			if(columns && i % columns) cerr << '\n';
+			if(columns && (i + 1) % columns == 0)
+				cerr << '\n';
 		}
 	}
 };
@@ -106,7 +126,7 @@ struct matrix {
 
 // NOTE:
 //  • Remember to set MOD, MOD = LLONG_MAX; in case of no mod
-//  • +=, *= -> Operators not overloaded
+//  • +, -, *, +=, -=, *=, == -> Overloaded Operators
 //  • Make sure to matrix<double> if you're multiplying by a double scalar
 
 signed main() {
