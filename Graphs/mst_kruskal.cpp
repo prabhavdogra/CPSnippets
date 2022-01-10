@@ -45,9 +45,8 @@ signed main() {
 	vector<Edge> adj;
 	for(int i = 0; i < m; i++) {
 		cin >> u >> v >> wt;
-		// Undirected
 		adj.push_back({u - 1, v - 1, wt});
-		adj.push_back({v - 1, u - 1, wt});
+		// adj.push_back({v - 1, u - 1, wt});
 	}
 	// O(M log(N))
 	auto kruskal = [&] (vector<Edge> &adj_) -> pair<vector<Edge>, int> {
