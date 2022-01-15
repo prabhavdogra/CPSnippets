@@ -193,7 +193,7 @@ public:
 		if(dep[a] > dep[b]) swap(a, b);
 		return res = operation(res, st.query(pos[a], pos[b]));
 	}
-	void update(int a, S b) {
+	void upd(int a, S b) {
 		st.upd(pos[a], b);
 	}
 };
