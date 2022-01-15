@@ -6,6 +6,7 @@ public:
 	int n, ln;
 	vector<int> level;
 	vector<vector<int>> dp, adj;
+	LCA() {}
 	LCA(vector<vector<int>> &a) {
 		n = a.size();
 		adj = a;
