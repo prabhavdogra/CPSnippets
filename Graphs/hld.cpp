@@ -119,12 +119,12 @@ using namespace atcoder;
 constexpr int64_t INF = 2e18;
 
 // Identity element: {0, addition}, {INF, min}, {-INF for max}
-constexpr int ID = -INF;
+#define ID {-INF};
 
 using S = int;
 // struct S { int v; };
 S initialize() { 
-	return (S){ID}; 
+	return ID;
 }
 S operation(const S &l, const S &r) { 
 	S res;
@@ -214,7 +214,7 @@ signed main() {
 	hld t(adj, wt);
 	cin >> q;
 	while(q--) {
-		
+
 	}
 	return 0;
 }
