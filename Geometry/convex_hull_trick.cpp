@@ -2,6 +2,8 @@
 using namespace std;
 #define int long long int
 
+// Works only for monotonic functions
+
 struct line {
 	int m, c;
 	line(int slope, int yIntercept) {
