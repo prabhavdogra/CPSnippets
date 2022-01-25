@@ -36,7 +36,7 @@ public:
 			dq.pop_back();
 		dq.emplace_back(newLine, dq.back().first.intersect(newLine));
 	}
-	// Not clearing deque
+	// Not clearing deque 
 	int query(int x) {
 		auto qry = *lower_bound(dq.rbegin(), dq.rend(),
 								make_pair(line(0, 0), x),
