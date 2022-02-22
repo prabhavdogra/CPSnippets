@@ -13,7 +13,7 @@ public:
 	ModInt& operator--() { return --(data ? data : data = M_32), *this; }
 	template<typename T> ModInt operator++(T) { 
 		ModInt res = *this;
-		return (++data == M_32) ? 0 : data, res;
+		return (++data == M_32) ? data = 0 : data, res;
 	}
 	template<typename T> ModInt operator--(T) { 
 		ModInt res = *this;
