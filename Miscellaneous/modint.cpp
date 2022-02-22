@@ -11,11 +11,11 @@ public:
 
 	ModInt& operator++() { return (++data == M_32) ? 0 : data, *this; }
 	ModInt& operator--() { return --(data ? data : data = M_32), *this; }
-	ModInt operator++(int) { 
+	template<typename T> ModInt operator++(T) { 
 		ModInt res = *this;
 		return (++data == M_32) ? 0 : data, res;
 	}
-	ModInt operator--(int) { 
+	template<typename T> ModInt operator--(T) { 
 		ModInt res = *this;
 		return --(data ? data : data = M_32), res;
 	}
