@@ -20,12 +20,11 @@ struct bellman_ford {
 		for(int i = 0; i < n; i++) {
 			lastRelaxed = -1;
 			for(auto [u, v, wt]: e) {
-				if(dis[u] < INF)
-					if(dis[v] > dis[u] + wt) {
-						dis[v] = max(-INF, dis[u] + wt);
-						path[v] = u;
-						lastRelaxed = v;
-					}
+				if(dis[u] < INF && dis[v] > dis[u] + wt) {
+					dis[v] = max(-INF, dis[u] + wt);
+					path[v] = u;
+					lastRelaxed = v;
+				}
 			}
 		}
 		if(lastRelaxed != -1) {
