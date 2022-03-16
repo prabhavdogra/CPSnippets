@@ -4,62 +4,58 @@ using namespace std;
 constexpr int INF = 1e18;
 
 struct edges {
-	int u, v, wt;
+	int u, v, cost;
 };
-
+// Negative cycle detection algorithm
 struct bellman_ford {
-	int negativeCyclePresent = 0;
+	int negativeCyclePresent;
 	vector<int> negativeCycle;
-	bellman_ford() {};
-	bellman_ford(vector<edges> &e, int n, int src) {
-		int m = e.size();
+	bellman_ford() {}
+	bellman_ford(int n, int m, int src, vector<edges> e) {
 		vector<int> dis(n, INF);
 		dis[src] = 0;
-		vector<int> path(n - 1);
-		int lastRelaxed = -1;
+		vector<int> par(n);
 		for(int i = 0; i < n; i++) {
-			lastRelaxed = -1;
-			for(auto [u, v, wt]: e) {
-				if(dis[u] < INF && dis[v] > dis[u] + wt) {
-					dis[v] = max(-INF, dis[u] + wt);
-					path[v] = u;
-					lastRelaxed = v;
+			negativeCyclePresent = -1;
+			for(auto [u, v, w]: e){
+				if(dis[u] + w < dis[v]){
+					dis[v] = dis[u] + w;
+					par[v] = u;
+					negativeCyclePresent = v;
 				}
 			}
 		}
-		if(lastRelaxed != -1) {
-			negativeCyclePresent = 1;
-			int y = lastRelaxed;
+		if(negativeCyclePresent == -1)
+			negativeCyclePresent = 0;
+		else {
 			for(int i = 0; i < n; i++)
-				y = path[y];
-			for(int cur = y; ; cur = path[cur]) {
-				negativeCycle.push_back(cur);
-				if(cur == y && negativeCycle.size() > 1)
+				negativeCyclePresent = par[negativeCyclePresent];
+			for(int x = negativeCyclePresent; ; x = par[x]){
+				negativeCycle.push_back(x);
+				if(x == negativeCyclePresent && negativeCycle.size() > 1) 
 					break;
 			}
 			reverse(negativeCycle.begin(), negativeCycle.end());
+			negativeCyclePresent = 1;
 		}
-		else
-			negativeCyclePresent = 0;
 	}
 };
 
 signed main() {
-	cin.tie(nullptr)->sync_with_stdio(false);
 	int n, m;
 	cin >> n >> m;
 	vector<edges> e(m);
 	for(int i = 0; i < m; i++) {
-		cin >> e[i].u >> e[i].v >> e[i].wt;
+		cin >> e[i].u >> e[i].v >> e[i].cost;
 		e[i].u--; e[i].v--;
 	}
-	bellman_ford b(e, n, 0);
+	bellman_ford b(n, m, 0, e);
 	if(b.negativeCyclePresent) {
 		cout << "YES\n";
-		for(auto it: b.negativeCycle)
-			cout << it + 1 << " ";
-		cout << endl;
+		for(auto x: b.negativeCycle)
+			cout << x + 1 << " ";
+		cout << "\n";
 	}
-	else cout << "NO\n";
-	return 0;
+	else
+		cout << "NO\n";
 }
