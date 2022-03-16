@@ -4,10 +4,10 @@ using namespace std;
 
 // Min distance Dijkstra's
 struct dijkstra {
-	vector<int64_t> dis;
+	vector<int> dis;
 	dijkstra() {}
-	dijkstra(vector<vector<pair<int64_t, int64_t>>> &adj, int64_t src) {
-		dis.assign(adj.size(), (int64_t)1e18);
+	dijkstra(vector<vector<pair<int, int>>> &adj, int src) {
+		dis.assign(adj.size(), (int)1e18);
 		priority_queue<pair<int, int>> q;
 		q.push({0, src});
 		dis[src] = 0;
@@ -27,10 +27,11 @@ struct dijkstra {
 	}
 };
 
-void solve() {
+signed main() {   
+    ios::sync_with_stdio(0); cin.tie(0);
     int n, m;
     cin >> n >> m;
-    vector<vector<pair<int64_t, int64_t>>> adj(n);
+    vector<vector<pair<int, int>>> adj(n);
     for(int i = 0; i < m; i++) {
         int u, v, wt;
         cin >> u >> v >> wt;
@@ -40,13 +41,5 @@ void solve() {
     for(auto it: d1.dis)
         cout << it << " ";
     cout << '\n';
-}
-
-signed main() {   
-    ios::sync_with_stdio(0); cin.tie(0);
-    int T = 1;
-    cin >> T;
-    while(T--)
-        solve();
     return 0;
 }
