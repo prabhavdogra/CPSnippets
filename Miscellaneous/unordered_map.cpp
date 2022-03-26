@@ -23,7 +23,7 @@ template<class K, class V> using safe_map = gp_hash_table<K, V, custom_hash>;
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
-	ht<int, pair<int, int>> mp;
+	safe_map<int, pair<int, int>> mp;
 	
 	return 0;
 }
