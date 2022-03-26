@@ -23,22 +23,7 @@ template<class K, class V> using safe_map = gp_hash_table<K, V, custom_hash>;
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
-	int n, x;
-	cin >> n >> x;
-	vector<int> a(n);
-	for (auto &it: a) cin >> it;
 	ht<int, pair<int, int>> mp;
-	for (int i = 0; i < n; i++) {
-		for (int j = i + 1; j < n; j++) {
-			int req = x - a[i] - a[j];
-			if (mp.find(req) != mp.end()) {
-				cout << i + 1 << " " << j + 1 << " " << mp[req].first << " "
-					 << mp[req].second;
-				return 0;
-			}
-		}
-		for (int j = i - 1; j >= 0; j--) mp[a[i] + a[j]] = {i + 1, j + 1};
-	}
-	cout << "IMPOSSIBLE\n";
+	
 	return 0;
 }
