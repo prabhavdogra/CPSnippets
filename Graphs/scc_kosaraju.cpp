@@ -74,7 +74,9 @@ void solve() {
 			order_scc_.push_back(component_[0]);
 		return {order_scc_, adj_scc_};
 	};
-	auto [order_scc, adj_scc] = condense(adj, components);
+	auto res = condense(adj, components);
+	auto order_scc = res.first;
+	auto adj_scc = res.second;
 }
 
 signed main() {
