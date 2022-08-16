@@ -15,41 +15,69 @@ public:
 				cur->put(word[i], new NODE());
 			}
 			cur = cur->get(word[i]);
+			cur->increasePrefixStringCnt();
 		}
-		cur->setAsLeaf();
+		cur->increaseLeafStringCnt();
 	}
-	bool search(string word) {
+	int countWordsEqualTo(string word) {
 		NODE* cur = root;
 		for(int i = 0; i < word.length(); i++) {
 			if(!cur->containsKey(word[i])) {
-				return false;
+				return 0;
 			}
 			cur = cur->get(word[i]);
 		}
-		return cur->isLeaf();
+		return cur->getLeafs();
 	}
-	bool startsWith(string prefix) {
+	int countWordsStartingWith(string prefix) {
 		NODE* cur = root;
 		for(int i = 0; i < prefix.length(); i++) {
 			if(!cur->containsKey(prefix[i])) {
-				return false;
+				return 0;
 			}
 			cur = cur->get(prefix[i]);
 		}
-		return true;
+		return cur->getPrefix();
+	}
+	void erase(string word) {
+		NODE* cur = root;
+		for(int i = 0; i < word.length(); i++) {
+			if(cur -> containsKey(word[i])) {
+				cur = cur->get(word[i]);
+				cur->decreasePrefixStringCnt();
+			}
+			else {
+				return;
+			}
+		}
+		cur->decreaseLeafStringCnt();
 	}
 };
 
 struct NODE {
 public:
-	bool is_leaf;
+	int cntPrefix;
+	int cntLeafs;
 	vector<NODE*> next;
 	NODE() {
-		is_leaf = false;
+		cntPrefix = 0;
+		cntLeafs = 0;
 		next = vector<NODE*>(26, NULL);
 	}
 	bool containsKey(char c) {
 		return (next[c - 'a'] != NULL);
+	}
+	void increaseLeafStringCnt() {
+		cntLeafs++;
+	}
+	void increasePrefixStringCnt() {
+		cntPrefix++;
+	}
+	void decreaseLeafStringCnt() {
+		cntLeafs--;
+	}
+	void decreasePrefixStringCnt() {
+		cntPrefix--;
 	}
 	void put(char c, NODE* node) {
 		next[c - 'a'] = node;
@@ -57,18 +85,17 @@ public:
 	NODE* get(char c) {
 		return next[c - 'a'];
 	}
-	void setAsLeaf() {
-		is_leaf = true;
+	int getLeafs() {
+		return cntLeafs;
 	}
-	bool isLeaf() {
-		return is_leaf;
+	int getPrefix() {
+		return cntPrefix;
 	}
 };
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
 	Trie<NODE> x;
-	x.insert("abcd");
-	cout << x.search("abcd");
+
 	return 0;
 }
