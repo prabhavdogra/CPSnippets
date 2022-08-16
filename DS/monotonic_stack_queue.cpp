@@ -1,9 +1,5 @@
 #include <bits/stdc++.h>
 using namespace std;
-#define int long long int
-#ifdef prabhav_
-	#include "Headers/debug.cpp"
-#endif
 
 // • We store {element, answerForCurrentStack}
 // • Push in stack the pair of {element, the minimum/maximum of all the elements present in the stack}
