@@ -36,44 +36,63 @@ public:
 	}
 };
 
-// ➼ We push and pop and maintain in the queue to maintain the following 2 properties
-// • Whatever answer is required is stored in the front of the dequeue
-// • All the elements in queue are monotonic in nature, i.e.
-//   Strictly non increasing or non decreasing
-template<typename T>
+// ➼ We maintain 2 stacks, one for pushing and one for popping
+// • In the pushing stack we push {element, max/min/gcd of elements present in the stack}
+// • We pop from the popping stack, if at any time the stack s2 is empty, we move all elements from s1 to s2 
+//   (which essentially reverses the order of those elements)
+// • Finding max/min/gcd just involves finding the max/min/gcd of both stacks
+template<typename T, typename DATA>
 class MonotonicQueue {
-public:
-	deque<T> mn;
-	deque<T> mx;
-	queue<T> elements;
+public: 
+	stack<pair<T, DATA>> s1, s2;
 	void push(T val) {
-		elements.push(val);
-		while(mn.size() && mn.back() > val)
-			mn.pop_back();
-		mn.push_back(val);
-		while(mx.size() && mx.back() < val)
-			mx.pop_back();
-		mx.push_back(val);
+		DATA x;
+		if(s1.size()) x = s1.top().second;
+		s1.push({val, combine(x, DATA(val))});
 	}
 	void pop() {
-		T val = elements.front();
-		elements.pop();
-		if(mn.size() && mn.front() == val) {
-			mn.pop_front();
+		if(!s2.size()) {
+			assert(s1.size());
+			s2.push({s1.top().first, DATA(s1.top().first)});
+			s1.pop();
+			while(s1.size()) {
+				auto val = s1.top().first;
+				s2.push({val, combine(s2.top().second, DATA(val))});
+				s1.pop();
+			}
 		}
-		if(mx.size() && mx.front() == val) {
-			mx.pop_front();
-		}
+		s2.pop();
 	}
-	T getMin() {
-		assert(mn.size());
-		return mn.front();
-	}
-	T getMax() {
-		assert(mx.size());
-		return mx.front();
+	DATA getResult() {
+		DATA data1;
+		if(s1.size()) data1 = s1.top().second;
+		DATA data2;
+		if(s2.size()) data2 = s2.top().second;
+		return combine(data1, data2);
 	}
 };
+
+struct DATA {
+	int mn, mx, g;
+	DATA() {
+		mn = 1e18;
+		mx = -1e18;
+		g = 0;
+	}
+	DATA(int x) {
+		mn = x;
+		mx = x;
+		g = x;
+	}
+};
+
+DATA combine(DATA a, DATA b) {
+	DATA res;
+	res.mn = min(a.mn, b.mn);
+	res.mx = max(a.mx, b.mx);
+	res.g = gcd(a.g, b.g);
+	return res;
+}
 
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
