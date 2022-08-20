@@ -97,6 +97,6 @@ DATA combine(DATA a, DATA b) {
 signed main() {
 	cin.tie(nullptr)->sync_with_stdio(false);
 	MonotonicStack<int> ms;
-	MonotonicQueue<int> mq;
+	MonotonicQueue<int, DATA> mq;
 	return 0;
 }
