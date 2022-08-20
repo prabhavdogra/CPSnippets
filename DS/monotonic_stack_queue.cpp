@@ -45,7 +45,9 @@ class MonotonicQueue {
 public:
 	deque<T> mn;
 	deque<T> mx;
+	queue<T> elements;
 	void push(T val) {
+		elements.push(val);
 		while(mn.size() && mn.back() > val)
 			mn.pop_back();
 		mn.push_back(val);
@@ -53,7 +55,9 @@ public:
 			mx.pop_back();
 		mx.push_back(val);
 	}
-	void pop(T val) { // We need to pass the element that we need to delete
+	void pop() {
+		T val = elements.front();
+		elements.pop();
 		if(mn.size() && mn.front() == val) {
 			mn.pop_front();
 		}
